@@ -1,573 +1,610 @@
 <!DOCTYPE html>
 <html lang="uz">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kirish - Dern-Support</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.6;
-            color: #1e293b;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, sans-serif;
+        line-height: 1.6;
+        color: #1e293b;
+        background: linear-gradient(
+          135deg,
+          #0f172a 0%,
+          #1e293b 50%,
+          #334155 100%
+        );
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
 
-        /* Header */
-        header {
-            background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 50%, #1e293b 100%);
-            color: white;
-            padding: 1rem 0;
-            box-shadow: 0 4px 20px rgba(30, 64, 175, 0.3);
-        }
+      /* Header */
+      header {
+        background: linear-gradient(
+          135deg,
+          #1e40af 0%,
+          #1e3a8a 50%,
+          #1e293b 100%
+        );
+        color: white;
+        padding: 1rem 0;
+        box-shadow: 0 4px 20px rgba(30, 64, 175, 0.3);
+      }
 
+      .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-size: 1.8rem;
+        font-weight: 800;
+        text-decoration: none;
+        color: white;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .logo:hover {
+        opacity: 0.9;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        padding: 10px 18px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        font-weight: 500;
+      }
+
+      .nav-links a:hover {
+        background-color: rgba(255, 255, 255, 0.15);
+        transform: translateY(-1px);
+      }
+
+      /* Main Content */
+      .main-content {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .main-content::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(5,150,105,0.05)" points="0,1000 1000,0 1000,1000"/></svg>');
+        pointer-events: none;
+      }
+
+      /* Login Card */
+      .login-card {
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        width: 100%;
+        max-width: 420px;
+        position: relative;
+        z-index: 2;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .login-header {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .login-header h1 {
+        font-size: 2rem;
+        font-weight: 800;
+        color: #1e293b;
+        margin-bottom: 8px;
+      }
+
+      .login-header p {
+        color: #64748b;
+        font-size: 0.95rem;
+      }
+
+      /* Form Styles */
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: 600;
+        color: #374151;
+        font-size: 0.9rem;
+      }
+
+      .form-group input {
+        width: 100%;
+        padding: 14px 16px;
+        border: 2px solid #e2e8f0;
+        border-radius: 10px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: #f8fafc;
+      }
+
+      .form-group input:focus {
+        outline: none;
+        border-color: #1e40af;
+        background: white;
+        box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+      }
+
+      .form-group input::placeholder {
+        color: #94a3b8;
+      }
+
+      /* Button */
+      .btn {
+        width: 100%;
+        padding: 14px 32px;
+        border: none;
+        border-radius: 10px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+        text-align: center;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #1e40af, #1e3a8a);
+        color: white;
+        box-shadow: 0 4px 15px rgba(30, 64, 175, 0.4);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(30, 64, 175, 0.5);
+        background: linear-gradient(135deg, #1e3a8a, #1e293b);
+      }
+
+      .btn-primary:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      /* Register Link */
+      .register-link {
+        text-align: center;
+        margin-top: 25px;
+        padding-top: 25px;
+        border-top: 1px solid #e2e8f0;
+      }
+
+      .register-link p {
+        color: #64748b;
+        font-size: 0.95rem;
+      }
+
+      .register-link a {
+        color: #1e40af;
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s ease;
+      }
+
+      .register-link a:hover {
+        color: #1e3a8a;
+        text-decoration: underline;
+      }
+
+      /* Alert Messages */
+      .alert {
+        padding: 12px 16px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        display: none;
+        font-weight: 500;
+        font-size: 0.9rem;
+      }
+
+      .alert-success {
+        background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+        color: #065f46;
+        border: 1px solid #059669;
+      }
+
+      .alert-error {
+        background: linear-gradient(135deg, #fee2e2, #fecaca);
+        color: #991b1b;
+        border: 1px solid #dc2626;
+      }
+
+      /* Loading State */
+      .loading {
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        border: 2px solid #ffffff;
+        border-radius: 50%;
+        border-top-color: transparent;
+        animation: spin 1s ease-in-out infinite;
+        margin-right: 8px;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Test Users Info - Compact */
+      .test-users {
+        background: rgba(30, 64, 175, 0.1);
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 25px;
+        border: 1px solid rgba(30, 64, 175, 0.2);
+      }
+
+      .test-users h4 {
+        color: #1e293b;
+        margin-bottom: 10px;
+        font-size: 0.9rem;
+        font-weight: 600;
+      }
+
+      .test-users .user-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+        font-size: 0.8rem;
+        color: #475569;
+        cursor: pointer;
+        padding: 4px 8px;
+        border-radius: 4px;
+        transition: background-color 0.2s ease;
+      }
+
+      .test-users .user-item:hover {
+        background-color: rgba(30, 64, 175, 0.1);
+      }
+
+      .test-users .user-item:last-child {
+        margin-bottom: 0;
+      }
+
+      /* Footer */
+      .footer {
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        color: white;
+        padding: 30px 0 15px;
+        margin-top: auto;
+      }
+
+      .footer-content {
+        text-align: center;
+        color: #94a3b8;
+        font-size: 0.9rem;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
         .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+          flex-direction: column;
+          gap: 15px;
         }
 
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 800;
-            text-decoration: none;
-            color: white;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .logo:hover {
-            opacity: 0.9;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            padding: 10px 18px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-
-        .nav-links a:hover {
-            background-color: rgba(255, 255, 255, 0.15);
-            transform: translateY(-1px);
-        }
-
-        /* Main Content */
-        .main-content {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 40px 20px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .main-content::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(5,150,105,0.05)" points="0,1000 1000,0 1000,1000"/></svg>');
-            pointer-events: none;
-        }
-
-        /* Login Card */
         .login-card {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            width: 100%;
-            max-width: 420px;
-            position: relative;
-            z-index: 2;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .login-header {
-            text-align: center;
-            margin-bottom: 30px;
+          padding: 30px 25px;
+          margin: 20px;
         }
 
         .login-header h1 {
-            font-size: 2rem;
-            font-weight: 800;
-            color: #1e293b;
-            margin-bottom: 8px;
+          font-size: 1.7rem;
         }
 
-        .login-header p {
-            color: #64748b;
-            font-size: 0.95rem;
+        .main-content {
+          padding: 30px 20px;
         }
+      }
 
-        /* Form Styles */
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: 600;
-            color: #374151;
-            font-size: 0.9rem;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 14px 16px;
-            border: 2px solid #e2e8f0;
-            border-radius: 10px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            background: #f8fafc;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: #1e40af;
-            background: white;
-            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
-        }
-
-        .form-group input::placeholder {
-            color: #94a3b8;
-        }
-
-        /* Button */
-        .btn {
-            width: 100%;
-            padding: 14px 32px;
-            border: none;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #1e40af, #1e3a8a);
-            color: white;
-            box-shadow: 0 4px 15px rgba(30, 64, 175, 0.4);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(30, 64, 175, 0.5);
-            background: linear-gradient(135deg, #1e3a8a, #1e293b);
-        }
-
-        .btn-primary:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        /* Register Link */
-        .register-link {
-            text-align: center;
-            margin-top: 25px;
-            padding-top: 25px;
-            border-top: 1px solid #e2e8f0;
-        }
-
-        .register-link p {
-            color: #64748b;
-            font-size: 0.95rem;
-        }
-
-        .register-link a {
-            color: #1e40af;
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-
-        .register-link a:hover {
-            color: #1e3a8a;
-            text-decoration: underline;
-        }
-
-        /* Alert Messages */
-        .alert {
-            padding: 12px 16px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            display: none;
-            font-weight: 500;
-            font-size: 0.9rem;
-        }
-
-        .alert-success {
-            background: linear-gradient(135deg, #d1fae5, #a7f3d0);
-            color: #065f46;
-            border: 1px solid #059669;
-        }
-
-        .alert-error {
-            background: linear-gradient(135deg, #fee2e2, #fecaca);
-            color: #991b1b;
-            border: 1px solid #dc2626;
-        }
-
-        /* Loading State */
-        .loading {
-            display: inline-block;
-            width: 18px;
-            height: 18px;
-            border: 2px solid #ffffff;
-            border-radius: 50%;
-            border-top-color: transparent;
-            animation: spin 1s ease-in-out infinite;
-            margin-right: 8px;
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        /* Test Users Info - Compact */
-        .test-users {
-            background: rgba(30, 64, 175, 0.1);
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 25px;
-            border: 1px solid rgba(30, 64, 175, 0.2);
-        }
-
-        .test-users h4 {
-            color: #1e293b;
-            margin-bottom: 10px;
-            font-size: 0.9rem;
-            font-weight: 600;
+      @media (max-width: 480px) {
+        .login-card {
+          padding: 25px 20px;
         }
 
         .test-users .user-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 5px;
-            font-size: 0.8rem;
-            color: #475569;
-            cursor: pointer;
-            padding: 4px 8px;
-            border-radius: 4px;
-            transition: background-color 0.2s ease;
+          flex-direction: column;
+          gap: 2px;
         }
-
-        .test-users .user-item:hover {
-            background-color: rgba(30, 64, 175, 0.1);
-        }
-
-        .test-users .user-item:last-child {
-            margin-bottom: 0;
-        }
-
-        /* Footer */
-        .footer {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            color: white;
-            padding: 30px 0 15px;
-            margin-top: auto;
-        }
-
-        .footer-content {
-            text-align: center;
-            color: #94a3b8;
-            font-size: 0.9rem;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            .login-card {
-                padding: 30px 25px;
-                margin: 20px;
-            }
-
-            .login-header h1 {
-                font-size: 1.7rem;
-            }
-
-            .main-content {
-                padding: 30px 20px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .login-card {
-                padding: 25px 20px;
-            }
-
-            .test-users .user-item {
-                flex-direction: column;
-                gap: 2px;
-            }
-        }
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <!-- Header -->
     <header>
-        <div class="container">
-            <div class="header-content">
-                <a href="/" class="logo">
-                    🔧 Dern-Support
-                </a>
+      <div class="container">
+        <div class="header-content">
+          <a href="/" class="logo"> 🔧 Dern-Support </a>
 
-                <nav class="nav-links">
-                    <a href="/">Bosh sahifa</a>
-                    <a href="../knowledges/">Bilimlar bazasi</a>
-                    <a href="../register/">Ro'yxatdan o'tish</a>
-                </nav>
-            </div>
+          <nav class="nav-links">
+            <a href="/">Bosh sahifa</a>
+            <a href="../knowledges/">Bilimlar bazasi</a>
+            <a href="../register/">Ro'yxatdan o'tish</a>
+          </nav>
         </div>
+      </div>
     </header>
 
     <!-- Main Content -->
     <main class="main-content">
-        <div class="login-card">
-            <div class="login-header">
-                <h1>Tizimga kirish</h1>
-                <p>Hisobingizga kirish uchun ma'lumotlaringizni kiriting</p>
-            </div>
-
-            <!-- Test Users Info - Compact -->
-            <div class="test-users">
-                <h4>Test foydalanuvchilar (bosish uchun):</h4>
-                <div class="user-item">
-                    <span>admin@gmail.com</span>
-                    <span>qwerty</span>
-                </div>
-                <div class="user-item">
-                    <span>user@gmail.com</span>
-                    <span>1234567890</span>
-                </div>
-            </div>
-
-            <div class="alert alert-success" id="successAlert"></div>
-            <div class="alert alert-error" id="errorAlert"></div>
-
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="email">Email manzil *</label>
-                    <input type="email" id="email" name="email" placeholder="example@gmail.com" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="password">Parol *</label>
-                    <input type="password" id="password" name="password" placeholder="Parolingizni kiriting" required>
-                </div>
-
-                <button type="submit" class="btn btn-primary" id="loginBtn">
-                    Kirish
-                </button>
-            </form>
-
-            <div class="register-link">
-                <p>Hisobingiz yo'qmi? <a href="../register/">Ro'yxatdan o'tish</a></p>
-            </div>
+      <div class="login-card">
+        <div class="login-header">
+          <h1>Tizimga kirish</h1>
+          <p>Hisobingizga kirish uchun ma'lumotlaringizni kiriting</p>
         </div>
+
+        <!-- Test Users Info - Compact -->
+        <div class="test-users">
+          <h4>Test foydalanuvchilar (bosish uchun):</h4>
+          <div class="user-item">
+            <span>admin@gmail.com</span>
+            <span>qwerty</span>
+          </div>
+          <div class="user-item">
+            <span>user@gmail.com</span>
+            <span>1234567890</span>
+          </div>
+        </div>
+
+        <div class="alert alert-success" id="successAlert"></div>
+        <div class="alert alert-error" id="errorAlert"></div>
+
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="email">Email manzil *</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="example@gmail.com"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="password">Parol *</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Parolingizni kiriting"
+              required
+            />
+          </div>
+
+          <button type="submit" class="btn btn-primary" id="loginBtn">
+            Kirish
+          </button>
+        </form>
+
+        <div class="register-link">
+          <p>Hisobingiz yo'qmi? <a href="../register/">Ro'yxatdan o'tish</a></p>
+        </div>
+      </div>
     </main>
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <p>&copy; 2024 Dern-Support. Barcha huquqlar himoyalangan.</p>
-            </div>
+      <div class="container">
+        <div class="footer-content">
+          <p>&copy; 2024 Dern-Support. Barcha huquqlar himoyalangan.</p>
         </div>
+      </div>
     </footer>
 
     <script>
-        // API base URL
-        const API_BASE = 'http://localhost:4000';
+      // API base URL
+      const API_BASE = "https://27wnwm-4000.csb.app";
 
-        // Check if user is already logged in
-        document.addEventListener('DOMContentLoaded', function () {
-            const userData = localStorage.getItem('userData');
-            if (userData) {
-                // User is already logged in, redirect to home
-                showAlert('success', 'Siz allaqachon tizimga kirgansiz!');
-                setTimeout(() => {
-                    if (userData.type === "admin") {
-                        window.location.href = '/admin/';
-                    } else {
-                        window.location.href = '/';
-                    }
-                }, 1500);
-            }
-        });
-
-        // Setup form submission
-        document.getElementById('loginForm').addEventListener('submit', async function (e) {
-            e.preventDefault();
-
-            const loginBtn = document.getElementById('loginBtn');
-            const formData = new FormData(this);
-
-            const loginData = {
-                email: formData.get('email').trim(),
-                password: formData.get('password').trim()
-            };
-
-            // Basic validation
-            if (!loginData.email || !loginData.password) {
-                showAlert('error', 'Email va parol kiritilishi kerak!');
-                return;
-            }
-
-            // Show loading state
-            loginBtn.disabled = true;
-            loginBtn.innerHTML = '<span class="loading"></span>Kirilmoqda...';
-
-            try {
-                console.log('Login ma\'lumotlari yuborilmoqda:', loginData);
-
-                const response = await fetch(`${API_BASE}/login`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(loginData)
-                });
-
-                console.log('Response status:', response.status);
-                const result = await response.json();
-                console.log('Response data:', result);
-
-                if (response.ok) {
-                    // Save user data to localStorage
-                    localStorage.setItem('userData', JSON.stringify(result.user));
-                    console.log('User ma\'lumotlari localStorage ga saqlandi:', result.user);
-
-                    // Check user type and redirect accordingly
-                    if (result.user.type === 'admin') {
-                        showAlert('success', result.message + ' Admin panelga yo\'naltirilmoqda...');
-                        setTimeout(() => {
-                            window.location.href = '/admin/';
-                        }, 1500);
-                    } else {
-                        showAlert('success', result.message + ' Bosh sahifaga yo\'naltirilmoqda...');
-                        setTimeout(() => {
-                            window.location.href = '/';
-                        }, 1500);
-                    }
-                } else {
-                    showAlert('error', result.message || 'Login xatoligi yuz berdi!');
-                }
-            } catch (error) {
-                console.error('Login xatoligi:', error);
-                showAlert('error', 'Server bilan bog\'lanishda xatolik yuz berdi. Iltimos qaytadan urinib ko\'ring.');
-            } finally {
-                // Reset button state
-                loginBtn.disabled = false;
-                loginBtn.innerHTML = 'Kirish';
-            }
-        });
-
-        // Show alert messages
-        function showAlert(type, message) {
-            const alertElement = document.getElementById(type === 'success' ? 'successAlert' : 'errorAlert');
-
-            // Hide other alerts
-            document.getElementById('successAlert').style.display = 'none';
-            document.getElementById('errorAlert').style.display = 'none';
-
-            // Show current alert
-            alertElement.textContent = message;
-            alertElement.style.display = 'block';
-
-            // Auto hide after 5 seconds (except for success messages during redirect)
-            if (type !== 'success' || !message.includes('yo\'naltirilmoqda')) {
-                setTimeout(() => {
-                    alertElement.style.display = 'none';
-                }, 5000);
-            }
-        }
-
-        // Add input validation
-        document.getElementById('email').addEventListener('input', function () {
-            const email = this.value.trim();
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-            if (email && !emailRegex.test(email)) {
-                this.style.borderColor = '#dc2626';
+      // Check if user is already logged in
+      document.addEventListener("DOMContentLoaded", function () {
+        const userData = localStorage.getItem("userData");
+        if (userData) {
+          // User is already logged in, redirect to home
+          showAlert("success", "Siz allaqachon tizimga kirgansiz!");
+          setTimeout(() => {
+            if (userData.type === "admin") {
+              window.location.href = "/admin/";
             } else {
-                this.style.borderColor = '#e2e8f0';
+              window.location.href = "/";
             }
-        });
-
-        document.getElementById('password').addEventListener('input', function () {
-            const password = this.value.trim();
-
-            if (password && password.length < 3) {
-                this.style.borderColor = '#dc2626';
-            } else {
-                this.style.borderColor = '#e2e8f0';
-            }
-        });
-
-        // Quick login function for testing
-        function quickLogin(email, password) {
-            document.getElementById('email').value = email;
-            document.getElementById('password').value = password;
-            document.getElementById('loginForm').dispatchEvent(new Event('submit'));
+          }, 1500);
         }
+      });
 
-        // Add click handlers to test users for quick login
-        document.addEventListener('DOMContentLoaded', function () {
-            const userItems = document.querySelectorAll('.user-item');
-            userItems.forEach((item, index) => {
-                item.title = 'Tezkor kirish uchun bosing';
+      // Setup form submission
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
 
-                item.addEventListener('click', function () {
-                    const emails = ['admin@gmail.com', 'user@gmail.com'];
-                    const passwords = ['qwerty', '1234567890'];
+          const loginBtn = document.getElementById("loginBtn");
+          const formData = new FormData(this);
 
-                    quickLogin(emails[index], passwords[index]);
-                });
+          const loginData = {
+            email: formData.get("email").trim(),
+            password: formData.get("password").trim(),
+          };
+
+          // Basic validation
+          if (!loginData.email || !loginData.password) {
+            showAlert("error", "Email va parol kiritilishi kerak!");
+            return;
+          }
+
+          // Show loading state
+          loginBtn.disabled = true;
+          loginBtn.innerHTML = '<span class="loading"></span>Kirilmoqda...';
+
+          try {
+            console.log("Login ma'lumotlari yuborilmoqda:", loginData);
+
+            const response = await fetch(`${API_BASE}/login`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(loginData),
             });
-        });
-    </script>
-</body>
 
+            console.log("Response status:", response.status);
+            const result = await response.json();
+            console.log("Response data:", result);
+
+            if (response.ok) {
+              // Save user data to localStorage
+              localStorage.setItem("userData", JSON.stringify(result.user));
+              console.log(
+                "User ma'lumotlari localStorage ga saqlandi:",
+                result.user
+              );
+
+              // Check user type and redirect accordingly
+              if (result.user.type === "admin") {
+                showAlert(
+                  "success",
+                  result.message + " Admin panelga yo'naltirilmoqda..."
+                );
+                setTimeout(() => {
+                  window.location.href = "/admin/";
+                }, 1500);
+              } else {
+                showAlert(
+                  "success",
+                  result.message + " Bosh sahifaga yo'naltirilmoqda..."
+                );
+                setTimeout(() => {
+                  window.location.href = "/";
+                }, 1500);
+              }
+            } else {
+              showAlert("error", result.message || "Login xatoligi yuz berdi!");
+            }
+          } catch (error) {
+            console.error("Login xatoligi:", error);
+            showAlert(
+              "error",
+              "Server bilan bog'lanishda xatolik yuz berdi. Iltimos qaytadan urinib ko'ring."
+            );
+          } finally {
+            // Reset button state
+            loginBtn.disabled = false;
+            loginBtn.innerHTML = "Kirish";
+          }
+        });
+
+      // Show alert messages
+      function showAlert(type, message) {
+        const alertElement = document.getElementById(
+          type === "success" ? "successAlert" : "errorAlert"
+        );
+
+        // Hide other alerts
+        document.getElementById("successAlert").style.display = "none";
+        document.getElementById("errorAlert").style.display = "none";
+
+        // Show current alert
+        alertElement.textContent = message;
+        alertElement.style.display = "block";
+
+        // Auto hide after 5 seconds (except for success messages during redirect)
+        if (type !== "success" || !message.includes("yo'naltirilmoqda")) {
+          setTimeout(() => {
+            alertElement.style.display = "none";
+          }, 5000);
+        }
+      }
+
+      // Add input validation
+      document.getElementById("email").addEventListener("input", function () {
+        const email = this.value.trim();
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (email && !emailRegex.test(email)) {
+          this.style.borderColor = "#dc2626";
+        } else {
+          this.style.borderColor = "#e2e8f0";
+        }
+      });
+
+      document
+        .getElementById("password")
+        .addEventListener("input", function () {
+          const password = this.value.trim();
+
+          if (password && password.length < 3) {
+            this.style.borderColor = "#dc2626";
+          } else {
+            this.style.borderColor = "#e2e8f0";
+          }
+        });
+
+      // Quick login function for testing
+      function quickLogin(email, password) {
+        document.getElementById("email").value = email;
+        document.getElementById("password").value = password;
+        document.getElementById("loginForm").dispatchEvent(new Event("submit"));
+      }
+
+      // Add click handlers to test users for quick login
+      document.addEventListener("DOMContentLoaded", function () {
+        const userItems = document.querySelectorAll(".user-item");
+        userItems.forEach((item, index) => {
+          item.title = "Tezkor kirish uchun bosing";
+
+          item.addEventListener("click", function () {
+            const emails = ["admin@gmail.com", "user@gmail.com"];
+            const passwords = ["qwerty", "1234567890"];
+
+            quickLogin(emails[index], passwords[index]);
+          });
+        });
+      });
+    </script>
+  </body>
 </html>
