@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ma'lumotlarni zaxiralash va xavfsizlik - Dern-Support</title>
+    <link rel="stylesheet" href="../../style.css">
+    <style>
+        /* Knowledge Article Specific Styles */
+        .article-hero {
+            height: 400px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .article-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.7));
+            z-index: 1;
+        }
+
+        .article-hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 40px;
+            width: 100%;
+        }
+
+        .article-hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+            line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            color: white;
+        }
+
+        .article-date {
+            font-size: 0.9rem;
+            color: #e2e8f0;
+        }
+
+        .article-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 50px 20px;
+        }
+
+        .article-content {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(30, 41, 59, 0.1);
+            padding: 40px;
+            margin-top: -80px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .article-image {
+            width: 100%;
+            border-radius: 12px;
+            margin: 30px 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .article-section {
+            margin-bottom: 40px;
+        }
+
+        .article-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #1e293b;
+            font-weight: 700;
+        }
+
+        .article-section h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            margin-top: 30px;
+            color: #1e293b;
+            font-weight: 600;
+        }
+
+        .article-section p {
+            color: #475569;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+
+        .article-section ul, 
+        .article-section ol {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+
+        .article-section li {
+            color: #475569;
+            line-height: 1.8;
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+        }
+
+        .article-tip {
+            background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px 0;
+            border-left: 4px solid #1e40af;
+        }
+
+        .article-tip h4 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #1e293b;
+            font-weight: 600;
+        }
+
+        .article-tip p {
+            color: #475569;
+            margin-bottom: 0;
+        }
+
+        .article-warning {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px 0;
+            border-left: 4px solid #d97706;
+        }
+
+        .article-warning h4 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #92400e;
+            font-weight: 600;
+        }
+
+        .article-warning p {
+            color: #92400e;
+            margin-bottom: 0;
+        }
+
+        .article-success {
+            background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px 0;
+            border-left: 4px solid #059669;
+        }
+
+        .article-success h4 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #065f46;
+            font-weight: 600;
+        }
+
+        .article-success p {
+            color: #047857;
+            margin-bottom: 0;
+        }
+
+        .article-steps {
+            counter-reset: step;
+            margin: 30px 0;
+        }
+
+        .article-step {
+            display: flex;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .article-step-number {
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, #1e40af, #1e3a8a);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .article-step-content {
+            flex: 1;
+        }
+
+        .article-step-content h4 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #1e293b;
+            font-weight: 600;
+        }
+
+        .article-step-content p {
+            color: #475569;
+            line-height: 1.7;
+            margin-bottom: 0;
+        }
+
+        .article-footer {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .back-to-kb {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #1e40af;
+            font-weight: 600;
+            margin-bottom: 30px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .back-to-kb:hover {
+            transform: translateX(-5px);
+        }
+
+        .back-to-kb::before {
+            content: '←';
+        }
+
+        .related-articles {
+            margin-top: 60px;
+        }
+
+        .related-articles h3 {
+            font-size: 1.6rem;
+            margin-bottom: 30px;
+            color: #1e293b;
+            font-weight: 700;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 25px;
+        }
+
+        .related-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(30, 41, 59, 0.08);
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+        }
+
+        .related-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(30, 41, 59, 0.15);
+        }
+
+        .related-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .related-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .related-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .related-content h4 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            color: #1e293b;
+            font-weight: 700;
+        }
+
+        .related-content p {
+            color: #64748b;
+            line-height: 1.7;
+            margin-bottom: 0;
+            flex-grow: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .article-hero h1 {
+                font-size: 2rem;
+            }
+
+            .article-content {
+                padding: 25px;
+            }
+
+            .article-section h2 {
+                font-size: 1.5rem;
+            }
+
+            .article-section h3 {
+                font-size: 1.3rem;
+            }
+
+            .related-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="/" class="logo">
+                    🔧 Dern-Support
+                </a>
+                
+                <!-- Guest Navigation -->
+                <div class="nav-links" id="guestNav">
+                    <a href="/login/">Kirish</a>
+                    <a href="/register/">Ro'yxatdan o'tish</a>
+                </div>
+                
+                <!-- User Navigation -->
+                <div class="user-info hidden" id="userNav">
+                    <div class="user-avatar" id="userAvatar"></div>
+                    <span id="userName"></span>
+                    <button class="logout-btn" onclick="logout()">Chiqish</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Article Hero -->
+    <section class="article-hero" style="background-image: url('https://www.datasciencecentral.com/wp-content/uploads/2022/04/AdobeStock_486455531.jpg?height=400&width=1200');">
+        <div class="article-hero-content">
+            <h1>Ma'lumotlarni zaxiralash va xavfsizlik</h1>
+            <div class="article-date">1-May, 2024</div>
+        </div>
+    </section>
+
+    <!-- Article Content -->
+    <div class="article-container">
+        <div class="article-content">
+            <a href="/knowledges/" class="back-to-kb">Bilimlar bazasiga qaytish</a>
+            
+            <div class="article-section">
+                <h2>Ma'lumotlarni zaxiralash va xavfsizlik</h2>
+                <p>Raqamli ma'lumotlar bizning hayotimizning ajralmas qismi bo'lib qoldi. Muhim hujjatlar, oilaviy suratlar, ish fayllari va boshqa qimmatli ma'lumotlarni yo'qotish katta muammo bo'lishi mumkin. Ushbu maqolada ma'lumotlarni xavfsiz saqlash va zaxiralash usullari haqida batafsil ma'lumot beramiz.</p>
+                
+                <div class="article-warning">
+                    <h4>Muhim eslatma</h4>
+                    <p>Statistikaga ko'ra, har 10 ta kompyuterdan 1 tasi yiliga kamida bir marta qattiq disk nosozligi bilan duch keladi. Ma'lumotlaringizni zaxiralamagan bo'lsangiz, ularni butunlay yo'qotish xavfi bor!</p>
+                </div>
+            </div>
+            
+            <!-- Ma'lumotlarni zaxiralash rasmi - keyword: data backup storage security -->
+            <img src="https://xiphcyber.com/rails/active_storage/representations/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBIUT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--ceaafae5d62ef72b6782910ba9c40e7409fcf24b/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCam9MY21WemFYcGxTU0lKT0RBd1BnWTZCa1ZVIiwiZXhwIjpudWxsLCJwdXIiOiJ2YXJpYXRpb24ifX0=--7395758b5be5bc3757e2467b4021010341d47265/22.09_XIPH_How%20backup%20data%20works.jpg?height=400&width=800" alt="Ma'lumotlarni zaxiralash va xavfsizlik" class="article-image">
+            
+            <div class="article-section">
+                <h2>Ma'lumotlar yo'qolishining asosiy sabablari</h2>
+                
+                <h3>1. Qattiq disk nosozligi</h3>
+                <p>Qattiq disklar mexanik qurilmalar bo'lib, vaqt o'tishi bilan ishdan chiqishi mumkin. SSD disklar ham cheklangan yozish tsikllariga ega.</p>
+                
+                <h3>2. Virus va zararli dasturlar</h3>
+                <p>Ransomware kabi zararli dasturlar ma'lumotlarni shifrlaydi yoki yo'q qiladi. Ba'zi viruslar fayllarni buzadi yoki o'chiradi.</p>
+                
+                <!-- Qattiq disk nosozligi rasmi - keyword: hard drive failure data loss -->
+                <img src="https://betanews.com/wp-content/uploads/2014/06/Damaged-hard-disk.jpg?height=300&width=800" alt="Qattiq disk nosozligi" class="article-image">
+                
+                <h3>3. Insoniy xatolar</h3>
+                <p>Tasodifan fayllarni o'chirish, noto'g'ri formatlashtirish yoki boshqa xatolar ma'lumot yo'qolishiga olib kelishi mumkin.</p>
+                
+                <h3>4. Tabiiy ofatlar</h3>
+                <p>Yong'in, suv toshqini, zilzila kabi tabiiy ofatlar kompyuter va ma'lumotlarni yo'q qilishi mumkin.</p>
+                
+                <h3>5. O'g'irlik</h3>
+                <p>Kompyuter yoki tashqi disklar o'g'irlanishi ham ma'lumot yo'qolishiga olib keladi.</p>
+            </div>
+            
+            <div class="article-section">
+                <h2>3-2-1 zaxiralash qoidasi</h2>
+                
+                <p>Eng yaxshi zaxiralash strategiyasi 3-2-1 qoidasiga asoslanadi:</p>
+                
+                <div class="article-steps">
+                    <div class="article-step">
+                        <div class="article-step-number">3</div>
+                        <div class="article-step-content">
+                            <h4>3 ta nusxa saqlang</h4>
+                            <p>Ma'lumotlaringizning kamida 3 ta nusxasi bo'lishi kerak: asl fayl va 2 ta zaxira nusxa.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="article-step">
+                        <div class="article-step-number">2</div>
+                        <div class="article-step-content">
+                            <h4>2 xil turdagi qurilmada saqlang</h4>
+                            <p>Turli xil saqlash qurilmalaridan foydalaning: qattiq disk, SSD, DVD, USB disk va boshqalar.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="article-step">
+                        <div class="article-step-number">1</div>
+                        <div class="article-step-content">
+                            <h4>1 ta nusxani boshqa joyda saqlang</h4>
+                            <p>Kamida bitta zaxira nusxani boshqa joyda (bulut xizmati yoki boshqa bino) saqlang.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 3-2-1 backup rule rasmi - keyword: 3-2-1 backup rule strategy -->
+                <img src="https://www.starwindsoftware.com/blog/wp-content/uploads/2024/01/1200x628_3-2-1-Backup-Rule.png?height=300&width=800" alt="3-2-1 zaxiralash qoidasi" class="article-image">
+            </div>
+            
+            <div class="article-section">
+                <h2>Zaxiralash usullari</h2>
+                
+                <h3>1. Tashqi qattiq disklar</h3>
+                <p>Eng oddiy va arzon usul. USB orqali ulanadigan tashqi disklar katta hajmdagi ma'lumotlarni saqlash uchun ideal.</p>
+                
+                <div class="article-tip">
+                    <h4>Maslahat</h4>
+                    <p>Tashqi diskni doimo kompyuterga ulab qo'ymang. Faqat zaxiralash vaqtida ulang, keyin uzib qo'ying. Bu ransomware hujumlaridan himoya qiladi.</p>
+                </div>
+                
+                <h3>2. Bulut saqlash xizmatlari</h3>
+                <p>Google Drive, OneDrive, Dropbox, iCloud kabi xizmatlar ma'lumotlarni internetda saqlaydi.</p>
+                
+                <ul>
+                    <li><strong>Afzalliklari:</strong> Har yerdan kirish, avtomatik sinxronizatsiya, yuqori ishonchlilik</li>
+                    <li><strong>Kamchiliklari:</strong> Internet talab qiladi, cheklangan bepul joy, xavfsizlik tashvishlari</li>
+                </ul>
+                
+                <!-- Bulut saqlash rasmi - keyword: cloud storage backup services -->
+                <img src="https://i.pcmag.com/imagery/roundups/00IBj7QgR0HtuwfikyDdyTq-12..v1616705579.png?height=300&width=800" alt="Bulut saqlash xizmatlari" class="article-image">
+                
+                <h3>3. Network Attached Storage (NAS)</h3>
+                <p>NAS - bu tarmoqqa ulangan saqlash qurilmasi bo'lib, bir nechta foydalanuvchi uchun markazlashtirilgan zaxiralash imkonini beradi.</p>
+                
+                <h3>4. DVD/Blu-ray disklar</h3>
+                <p>Uzoq muddatli saqlash uchun optik disklar ishlatilishi mumkin. Ular elektromagnit ta'sirga chidamli.</p>
+                
+                <h3>5. Avtomatik zaxiralash dasturlari</h3>
+                <p>Windows File History, Time Machine (Mac), yoki uchinchi tomon dasturlari avtomatik zaxiralash imkonini beradi.</p>
+            </div>
+            
+            <div class="article-section">
+                <h2>Zaxiralash strategiyasini yaratish</h2>
+                
+                <div class="article-steps">
+                    <div class="article-step">
+                        <div class="article-step-number">1</div>
+                        <div class="article-step-content">
+                            <h4>Muhim ma'lumotlarni aniqlang</h4>
+                            <p>Qaysi fayllar eng muhim ekanligini aniqlang: hujjatlar, suratlar, videolar, ish fayllari.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="article-step">
+                        <div class="article-step-number">2</div>
+                        <div class="article-step-content">
+                            <h4>Zaxiralash usulini tanlang</h4>
+                            <p>Byudjet, ma'lumot hajmi va xavfsizlik talablariga qarab eng mos usulni tanlang.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="article-step">
+                        <div class="article-step-number">3</div>
+                        <div class="article-step-content">
+                            <h4>Zaxiralash jadvalini tuzing</h4>
+                            <p>Kunlik, haftalik yoki oylik zaxiralash jadvalini belgilang va unga rioya qiling.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Backup schedule rasmi - keyword: backup schedule planning -->
+                    <img src="https://www.slideteam.net/media/catalog/product/cache/560x315/p/l/plan_useful_data_backup_schedule_implementing_strategies_to_mitigate_cyber_security_threats_slide01.jpg?height=300&width=800" alt="Zaxiralash jadvali" class="article-image">
+                    
+                    <div class="article-step">
+                        <div class="article-step-number">4</div>
+                        <div class="article-step-content">
+                            <h4>Zaxira nusxalarni test qiling</h4>
+                            <p>Muntazam ravishda zaxira nusxalardan fayllarni tiklashni sinab ko'ring.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="article-step">
+                        <div class="article-step-number">5</div>
+                        <div class="article-step-content">
+                            <h4>Strategiyani yangilab turing</h4>
+                            <p>Ehtiyojlar o'zgarishi bilan zaxiralash strategiyasini ham yangilab turing.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="article-section">
+                <h2>Ma'lumotlar xavfsizligi</h2>
+                
+                <h3>Shifrlash</h3>
+                <p>Muhim ma'lumotlarni shifrlang, ayniqsa tashqi disklarda va bulut xizmatlarida saqlaganda.</p>
+                
+                <ul>
+                    <li><strong>Windows:</strong> BitLocker ishlatib diskni shifrlang</li>
+                    <li><strong>Mac:</strong> FileVault yoqib qo'ying</li>
+                    <li><strong>Uchinchi tomon:</strong> VeraCrypt kabi dasturlardan foydalaning</li>
+                </ul>
+                
+                <h3>Parol himoyasi</h3>
+                <p>Zaxira fayllar va saqlash qurilmalarini parol bilan himoyalang.</p>
+                
+                <h3>Fizik xavfsizlik</h3>
+                <p>Tashqi disklar va boshqa saqlash qurilmalarini xavfsiz joyda saqlang.</p>
+                
+                <!-- Data encryption rasmi - keyword: data encryption security -->
+                <img src="https://kinsta.com/wp-content/uploads/2023/07/what-is-encryption.jpg?height=300&width=800" alt="Ma'lumotlarni shifrlash" class="article-image">
+            </div>
+            
+            <div class="article-section">
+                <h2>Tavsiya etiladigan zaxiralash dasturlari</h2>
+                
+                <h3>Bepul dasturlar</h3>
+                <ul>
+                    <li><strong>Windows File History</strong> - Windows bilan birga keladi</li>
+                    <li><strong>Time Machine</strong> - Mac uchun</li>
+                    <li><strong>Cobian Backup</strong> - kuchli bepul dastur</li>
+                    <li><strong>AOMEI Backupper</strong> - oson foydalanish</li>
+                </ul>
+                
+                <h3>Pullik dasturlar</h3>
+                <ul>
+                    <li><strong>Acronis True Image</strong> - professional yechim</li>
+                    <li><strong>EaseUS Todo Backup</strong> - keng imkoniyatlar</li>
+                    <li><strong>Carbonite</strong> - bulut zaxiralash</li>
+                    <li><strong>Backblaze</strong> - cheksiz bulut zaxiralash</li>
+                </ul>
+            </div>
+            
+            <div class="article-section">
+                <h2>Zaxiralashda tez-tez uchraydigan xatolar</h2>
+                
+                <ul>
+                    <li><strong>Faqat bitta zaxira nusxa saqlash</strong> - Agar u buzilsa, hamma narsa yo'qoladi</li>
+                    <li><strong>Zaxira nusxalarni test qilmaslik</strong> - Kerak bo'lganda ishlamasligi mumkin</li>
+                    <li><strong>Eski zaxira nusxalarni saqlamaslik</strong> - Ba'zida eski versiya kerak bo'lishi mumkin</li>
+                    <li><strong>Avtomatlashtirmaslik</strong> - Qo'lda zaxiralash ko'pincha unutiladi</li>
+                    <li><strong>Xavfsizlikni e'tiborsiz qoldirish</strong> - Shifrlash va parol himoyasini ishlatmaslik</li>
+                </ul>
+                
+                <div class="article-success">
+                    <h4>Muvaffaqiyat kaliti</h4>
+                    <p>Eng yaxshi zaxiralash strategiyasi - bu siz unutib qo'yadigan strategiya. Avtomatlashtiring va muntazam tekshirib turing!</p>
+                </div>
+            </div>
+            
+            <div class="article-section">
+                <h2>Xulosa</h2>
+                <p>Ma'lumotlarni zaxiralash - bu sug'urta polisi kabi. Umid qilamizki, hech qachon kerak bo'lmaydi, lekin agar kerak bo'lsa, juda qimmatli bo'ladi. 3-2-1 qoidasiga rioya qiling, muntazam zaxiralang va zaxira nusxalarni test qilib turing. Esda tutingki, ma'lumotlar yo'qolgandan keyin zaxiralash haqida o'ylash juda kech. Bugun boshlang!</p>
+            </div>
+        </div>
+        
+        <!-- Related Articles -->
+        <div class="related-articles">
+            <h3>O'xshash maqolalar</h3>
+            
+            <div class="related-grid">
+                <a href="/knowledges/2/" class="related-card">
+                    <img src="https://www.eojohnson.com/hubfs/computer-virus-protection.jpg?height=200&width=400" alt="Virus va zararli dasturlardan himoya">
+                    <div class="related-content">
+                        <h4>Virus va zararli dasturlardan himoya</h4>
+                        <p>Kompyuteringizni virus va zararli dasturlardan himoya qilish uchun eng yaxshi amaliyotlar va vositalar.</p>
+                    </div>
+                </a>
+                
+                <a href="/knowledges/0/" class="related-card">
+                    <img src="https://www.revouninstaller.com/wp-content/uploads/2021/04/slow-computer-cover.jpg?height=200&width=400" alt="Kompyuter sekinlashishi muammosi">
+                    <div class="related-content">
+                        <h4>Kompyuter sekinlashishi muammosi</h4>
+                        <p>Kompyuteringiz sekinlashib qolganmi? Tezligini oshirish va ishlashini yaxshilash uchun amaliy maslahatlar.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Dern-Support</h3>
+                    <p>IT muammolaringizni hal qilishda yordam beramiz. Bizning mutaxassislar har doim yordam berishga tayyor.</p>
+                    <div class="social-links">
+                        <a href="#">📱</a>
+                        <a href="#">📘</a>
+                        <a href="#">📸</a>
+                        <a href="#">📢</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Foydali havolalar</h3>
+                    <ul class="footer-links">
+                        <li><a href="/">Bosh sahifa</a></li>
+                        <li><a href="/knowledges/">Bilimlar bazasi</a></li>
+                        <li><a href="/login/">Kirish</a></li>
+                        <li><a href="/register/">Ro'yxatdan o'tish</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Bog'lanish</h3>
+                    <p>Manzil: Toshkent sh., Amir Temur ko'chasi, 108-uy</p>
+                    <p>Telefon: +998 71 123-45-67</p>
+                    <p>Email: info@dern-support.uz</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Dern-Support. Barcha huquqlar himoyalangan.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // API base URL
+        const API_BASE = 'http://localhost:4000';
+
+        // Check user authentication on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            checkUserAuth();
+        });
+
+        // Check if user is logged in
+        function checkUserAuth() {
+            const userData = localStorage.getItem('userData');
+
+            if (userData) {
+                const user = JSON.parse(userData);
+                
+                // If user is admin, don't redirect from knowledge base
+                if (user.type === 'admin') {
+                    showUserInterface(user);
+                    return;
+                }
+                
+                showUserInterface(user);
+            } else {
+                showGuestInterface();
+            }
+        }
+
+        // Show interface for logged in users
+        function showUserInterface(user) {
+            // Hide guest elements
+            document.getElementById('guestNav').classList.add('hidden');
+            
+            // Show user elements
+            document.getElementById('userNav').classList.remove('hidden');
+            
+            // Update user info
+            document.getElementById('userName').textContent = user.name;
+            document.getElementById('userAvatar').textContent = user.name.charAt(0).toUpperCase();
+        }
+
+        // Show interface for guests
+        function showGuestInterface() {
+            // Show guest elements
+            document.getElementById('guestNav').classList.remove('hidden');
+            
+            // Hide user elements
+            document.getElementById('userNav').classList.add('hidden');
+        }
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('userData');
+            location.reload();
+        }
+    </script>
+</body>
+</html>

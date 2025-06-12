@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virus va zararli dasturlardan himoya - Dern-Support</title>
+    <link rel="stylesheet" href="../../style.css">
+    <style>
+        /* Knowledge Article Specific Styles */
+        .article-hero {
+            height: 400px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .article-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.7));
+            z-index: 1;
+        }
+
+        .article-hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 40px;
+            width: 100%;
+        }
+
+        .article-hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+            line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            color: white;
+        }
+
+        .article-date {
+            font-size: 0.9rem;
+            color: #e2e8f0;
+        }
+
+        .article-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 50px 20px;
+        }
+
+        .article-content {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(30, 41, 59, 0.1);
+            padding: 40px;
+            margin-top: -80px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .article-image {
+            width: 100%;
+            border-radius: 12px;
+            margin: 30px 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .article-section {
+            margin-bottom: 40px;
+        }
+
+        .article-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #1e293b;
+            font-weight: 700;
+        }
+
+        .article-section h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            margin-top: 30px;
+            color: #1e293b;
+            font-weight: 600;
+        }
+
+        .article-section p {
+            color: #475569;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+
+        .article-section ul, 
+        .article-section ol {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+
+        .article-section li {
+            color: #475569;
+            line-height: 1.8;
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+        }
+
+        .article-tip {
+            background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px 0;
+            border-left: 4px solid #1e40af;
+        }
+
+        .article-tip h4 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #1e293b;
+            font-weight: 600;
+        }
+
+        .article-tip p {
+            color: #475569;
+            margin-bottom: 0;
+        }
+
+        .article-warning {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px 0;
+            border-left: 4px solid #d97706;
+        }
+
+        .article-warning h4 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #92400e;
+            font-weight: 600;
+        }
+
+        .article-warning p {
+            color: #92400e;
+            margin-bottom: 0;
+        }
+
+        .article-danger {
+            background: linear-gradient(135deg, #fee2e2, #fecaca);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px 0;
+            border-left: 4px solid #dc2626;
+        }
+
+        .article-danger h4 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #991b1b;
+            font-weight: 600;
+        }
+
+        .article-danger p {
+            color: #991b1b;
+            margin-bottom: 0;
+        }
+
+        .article-steps {
+            counter-reset: step;
+            margin: 30px 0;
+        }
+
+        .article-step {
+            display: flex;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .article-step-number {
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, #1e40af, #1e3a8a);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .article-step-content {
+            flex: 1;
+        }
+
+        .article-step-content h4 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #1e293b;
+            font-weight: 600;
+        }
+
+        .article-step-content p {
+            color: #475569;
+            line-height: 1.7;
+            margin-bottom: 0;
+        }
+
+        .article-footer {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .back-to-kb {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #1e40af;
+            font-weight: 600;
+            margin-bottom: 30px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .back-to-kb:hover {
+            transform: translateX(-5px);
+        }
+
+        .back-to-kb::before {
+            content: '←';
+        }
+
+        .related-articles {
+            margin-top: 60px;
+        }
+
+        .related-articles h3 {
+            font-size: 1.6rem;
+            margin-bottom: 30px;
+            color: #1e293b;
+            font-weight: 700;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 25px;
+        }
+
+        .related-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(30, 41, 59, 0.08);
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+        }
+
+        .related-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(30, 41, 59, 0.15);
+        }
+
+        .related-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .related-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .related-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .related-content h4 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            color: #1e293b;
+            font-weight: 700;
+        }
+
+        .related-content p {
+            color: #64748b;
+            line-height: 1.7;
+            margin-bottom: 0;
+            flex-grow: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .article-hero h1 {
+                font-size: 2rem;
+            }
+
+            .article-content {
+                padding: 25px;
+            }
+
+            .article-section h2 {
+                font-size: 1.5rem;
+            }
+
+            .article-section h3 {
+                font-size: 1.3rem;
+            }
+
+            .related-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="/" class="logo">
+                    🔧 Dern-Support
+                </a>
+                
+                <!-- Guest Navigation -->
+                <div class="nav-links" id="guestNav">
+                    <a href="/login/">Kirish</a>
+                    <a href="/register/">Ro'yxatdan o'tish</a>
+                </div>
+                
+                <!-- User Navigation -->
+                <div class="user-info hidden" id="userNav">
+                    <div class="user-avatar" id="userAvatar"></div>
+                    <span id="userName"></span>
+                    <button class="logout-btn" onclick="logout()">Chiqish</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Article Hero -->
+    <section class="article-hero" style="background-image: url('https://www.eojohnson.com/hubfs/computer-virus-protection.jpg?height=400&width=1200');">
+        <div class="article-hero-content">
+            <h1>Virus va zararli dasturlardan himoya</h1>
+            <div class="article-date">5-May, 2024</div>
+        </div>
+    </section>
+
+    <!-- Article Content -->
+    <div class="article-container">
+        <div class="article-content">
+            <a href="/knowledges/" class="back-to-kb">Bilimlar bazasiga qaytish</a>
+            
+            <div class="article-section">
+                <h2>Virus va zararli dasturlardan himoya</h2>
+                <p>Zamonaviy raqamli dunyoda kompyuter xavfsizligi juda muhim masala. Viruslar, trojanlar, spyware va boshqa zararli dasturlar sizning shaxsiy ma'lumotlaringizni o'g'irlashi, kompyuteringizni buzishi yoki moliyaviy zararlar keltirib chiqarishi mumkin. Ushbu maqolada kompyuteringizni zararli dasturlardan himoya qilish usullari haqida batafsil ma'lumot beramiz.</p>
+                
+                <div class="article-danger">
+                    <h4>Muhim!</h4>
+                    <p>Zararli dasturlar sizning shaxsiy ma'lumotlaringiz, parollaringiz va moliyaviy ma'lumotlaringizni o'g'irlashi mumkin. Himoya choralarini jiddiy qabul qiling!</p>
+                </div>
+            </div>
+            
+            <!-- Virus va zararli dasturlar rasmi - keyword: computer virus malware protection -->
+            <img src="https://antivirus.comodo.com/blog/wp-content/uploads/2020/03/computer-virus-protection-for-windows-8.1.png?height=400&width=800" alt="Virus va zararli dasturlardan himoya" class="article-image">
+            
+            <div class="article-section">
+                <h2>Zararli dasturlarning turlari</h2>
+                
+                <h3>1. Viruslar</h3>
+                <p>Viruslar boshqa dasturlarga yoki fayllarga yopishib, ularni buzadi va o'zini ko'paytiradi. Ular tizimni sekinlashtirishi, fayllarni buzishi yoki yo'q qilishi mumkin.</p>
+                
+                <h3>2. Trojan otlari</h3>
+                <p>Trojanlar foydali dastur sifatida ko'rinib, aslida zararli kod o'z ichiga oladi. Ular kompyuteringizga yashirin kirish yo'lini ochishi mumkin.</p>
+                
+                <!-- Trojan ot rasmi - keyword: trojan horse malware -->
+                <img src="https://www.emsisoft.com/en/blog/wp-content/uploads/2017/09/trojan-horse-virus-removal-blog.png?height=300&width=800" alt="Trojan ot zararli dasturi" class="article-image">
+                
+                <h3>3. Spyware</h3>
+                <p>Spyware sizning faoliyatingizni kuzatib, shaxsiy ma'lumotlaringizni yashirin ravishda to'playdi va uchinchi shaxslarga yuboradi.</p>
+                
+                <h3>4. Adware</h3>
+                <p>Adware keraksiz reklamalarni ko'rsatadi va brauzer sozlamalarini o'zgartiradi. Garchi unchalik xavfli bo'lmasa ham, bezovta qiladi.</p>
+                
+                <h3>5. Ransomware</h3>
+                <p>Ransomware sizning fayllaringizni shifrlaydi va ularni qaytarish uchun pul talab qiladi. Bu eng xavfli zararli dastur turlaridan biri.</p>
+                
+                <!-- Ransomware rasmi - keyword: ransomware attack encryption -->
+                <img src="https://documents.trendmicro.com/images/tex/articles/ransomware-bts-01.jpg?height=300&width=800" alt="Ransomware hujumi" class="article-image">
+            </div>
+            
+            <div class="article-section">
+                <h2>Zararli dasturlardan himoyalanish usullari</h2>
+                
+                <div class="article-steps">
+                    <div class="article-step">
+                        <div class="article-step-number">1</div>
+                        <div class="article-step-content">
+                            <h4>Ishonchli antivirus dasturini o'rnating</h4>
+                            <p>Kaspersky, Norton, Bitdefender, Avast kabi taniqli antivirus dasturlaridan birini o'rnating va uni doimo yangilab turing.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Antivirus dasturi rasmi - keyword: antivirus software installation -->
+                    <img src="https://images.techadvisor.com/cmsdata/features/3687095/how_to_install_antivirus_on_pc_or_laptop_step3_thumb.jpg?height=300&width=800" alt="Antivirus dasturini o'rnatish" class="article-image">
+                    
+                    <div class="article-step">
+                        <div class="article-step-number">2</div>
+                        <div class="article-step-content">
+                            <h4>Operatsion tizimni yangilab turing</h4>
+                            <p>Windows Update orqali tizimni muntazam yangilang. Xavfsizlik yamoqlari muhim himoya vositasidir.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="article-step">
+                        <div class="article-step-number">3</div>
+                        <div class="article-step-content">
+                            <h4>Shubhali havolalar va qo'shimchalardan saqlaning</h4>
+                            <p>Noma'lum manbalardan kelgan emaildagi havolalar va qo'shimchalarni ochmang. Phishing hujumlaridan ehtiyot bo'ling.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Phishing email rasmi - keyword: phishing email scam -->
+                    <img src="https://uk.norton.com/content/dam/blogs/images/norton/am/phishing-email-examples-02.jpg?height=300&width=800" alt="Phishing email hujumi" class="article-image">
+                    
+                    <div class="article-step">
+                        <div class="article-step-number">4</div>
+                        <div class="article-step-content">
+                            <h4>Faqat ishonchli manbalardan dastur yuklab oling</h4>
+                            <p>Dasturlarni faqat rasmiy veb-saytlardan yoki Microsoft Store kabi ishonchli do'konlardan yuklab oling.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="article-step">
+                        <div class="article-step-number">5</div>
+                        <div class="article-step-content">
+                            <h4>Brandmauer (Firewall) yoqib qo'ying</h4>
+                            <p>Windows Firewall yoki uchinchi tomon brandmauerini faollashtiring. Bu tashqi hujumlardan himoya qiladi.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="article-warning">
+                    <h4>Ogohlantirish</h4>
+                    <p>Bir vaqtning o'zida bir nechta antivirus dasturini ishlatmang. Bu tizim konfliktlariga va sekinlashishiga olib kelishi mumkin.</p>
+                </div>
+            </div>
+            
+            <div class="article-section">
+                <h2>Xavfsiz internet foydalanish qoidalari</h2>
+                
+                <h3>Email xavfsizligi</h3>
+                <ul>
+                    <li>Noma'lum jo'natuvchilardan kelgan emaillarni ehtiyot bilan oching</li>
+                    <li>Shubhali qo'shimchalarni yuklab olmang</li>
+                    <li>Emaildagi havolalarni bosishdan oldin ularni tekshiring</li>
+                    <li>Shaxsiy ma'lumotlaringizni email orqali bermang</li>
+                </ul>
+                
+                <h3>Brauzer xavfsizligi</h3>
+                <ul>
+                    <li>Brauzerni doimo yangilab turing</li>
+                    <li>Shubhali veb-saytlarga kirmang</li>
+                    <li>Pop-up reklamalarni yopmang, ularni bloklang</li>
+                    <li>HTTPS protokoli ishlatilgan saytlarni afzal ko'ring</li>
+                </ul>
+                
+                <!-- Xavfsiz brauzer rasmi - keyword: secure web browsing https -->
+                <img src="https://media.geeksforgeeks.org/wp-content/uploads/20240111152750/HTTPS-gif.gif?height=300&width=800" alt="Xavfsiz brauzer foydalanish" class="article-image">
+                
+                <h3>Parol xavfsizligi</h3>
+                <ul>
+                    <li>Kuchli parollar yarating (kamida 12 belgi, harflar, raqamlar, belgilar)</li>
+                    <li>Har bir hisob uchun alohida parol ishlating</li>
+                    <li>Parol menejeridan foydalaning</li>
+                    <li>Ikki faktorli autentifikatsiyani yoqing</li>
+                </ul>
+            </div>
+            
+            <div class="article-section">
+                <h2>Agar kompyuter yuqtirgan bo'lsa nima qilish kerak</h2>
+                
+                <div class="article-steps">
+                    <div class="article-step">
+                        <div class="article-step-number">1</div>
+                        <div class="article-step-content">
+                            <h4>Internetdan uzib qo'ying</h4>
+                            <p>Zararli dastur tarqalishining oldini olish uchun kompyuterni internetdan uzib qo'ying.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="article-step">
+                        <div class="article-step-number">2</div>
+                        <div class="article-step-content">
+                            <h4>Xavfsiz rejimda ishga tushiring</h4>
+                            <p>Kompyuterni Safe Mode da ishga tushiring va antivirus skanerlashini o'tkazing.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="article-step">
+                        <div class="article-step-number">3</div>
+                        <div class="article-step-content">
+                            <h4>Malware Removal Tool ishlatib ko'ring</h4>
+                            <p>Microsoft Windows Defender Offline yoki Malwarebytes kabi maxsus vositalardan foydalaning.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Malware removal rasmi - keyword: malware removal tool scan -->
+                    <img src="https://www.webassetscdn.com/avira/prod/cache-buster-1607513335/tmp/image-thumbnails/ContentHub/VisualContent/Images/Screenshot/AVIRA-FREE-SECURITY/image-thumb__7876__width570/spotlight_dashboard_page_EN.webp?height=300&width=800" alt="Zararli dasturlarni olib tashlash" class="article-image">
+                    
+                    <div class="article-step">
+                        <div class="article-step-number">4</div>
+                        <div class="article-step-content">
+                            <h4>Parollarni o'zgartiring</h4>
+                            <p>Barcha muhim hisoblaringizning parollarini o'zgartiring, ayniqsa bank va email hisoblarini.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="article-step">
+                        <div class="article-step-number">5</div>
+                        <div class="article-step-content">
+                            <h4>Tizimni qayta o'rnating (zarur bo'lsa)</h4>
+                            <p>Agar zararli dastur to'liq olib tashlanmasa, operatsion tizimni qayta o'rnatish eng ishonchli yechim.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="article-section">
+                <h2>Tavsiya etiladigan xavfsizlik dasturlari</h2>
+                
+                <h3>Bepul antivirus dasturlari</h3>
+                <ul>
+                    <li><strong>Windows Defender</strong> - Windows bilan birga keladi</li>
+                    <li><strong>Avast Free Antivirus</strong> - keng imkoniyatlar</li>
+                    <li><strong>AVG AntiVirus Free</strong> - oson foydalanish</li>
+                    <li><strong>Bitdefender Antivirus Free</strong> - yuqori himoya darajasi</li>
+                </ul>
+                
+                <h3>Pullik antivirus dasturlari</h3>
+                <ul>
+                    <li><strong>Kaspersky Internet Security</strong> - eng yaxshi himoya</li>
+                    <li><strong>Norton 360</strong> - to'liq xavfsizlik yechimi</li>
+                    <li><strong>Bitdefender Total Security</strong> - yuqori sifat</li>
+                    <li><strong>ESET Internet Security</strong> - tez va samarali</li>
+                </ul>
+            </div>
+            
+            <div class="article-section">
+                <h2>Xulosa</h2>
+                <p>Kompyuter xavfsizligi - bu bir martalik emas, balki doimiy jarayon. Muntazam ravishda antivirus dasturini yangilab turish, ehtiyotkorlik bilan internet foydalanish va xavfsizlik qoidalariga rioya qilish orqali ko'plab xavflardan qochish mumkin. Esda tutingki, eng yaxshi himoya - bu oldini olish. Shubhali faoliyatlardan saqlaning va har doim ehtiyotkor bo'ling.</p>
+            </div>
+        </div>
+        
+        <!-- Related Articles -->
+        <div class="related-articles">
+            <h3>O'xshash maqolalar</h3>
+            
+            <div class="related-grid">
+                <a href="/knowledges/3/" class="related-card">
+                    <img src="https://www.datasciencecentral.com/wp-content/uploads/2022/04/AdobeStock_486455531.jpg?height=200&width=400" alt="Ma'lumotlarni zaxiralash va xavfsizlik">
+                    <div class="related-content">
+                        <h4>Ma'lumotlarni zaxiralash va xavfsizlik</h4>
+                        <p>Muhim ma'lumotlaringizni yo'qotishdan saqlash uchun zaxiralash usullari va ma'lumotlar xavfsizligi bo'yicha maslahatlar.</p>
+                    </div>
+                </a>
+                
+                <a href="/knowledges/4/" class="related-card">
+                    <img src="https://www.siyavula.com/read/za/computer-applications-technology/grade-10/computer-software/images/pg105-01.jpg?height=200&width=400" alt="Operatsion tizim va dasturiy ta'minot yangilash">
+                    <div class="related-content">
+                        <h4>Operatsion tizim va dasturiy ta'minot yangilash</h4>
+                        <p>Operatsion tizim va dasturiy ta'minotni yangilash bo'yicha qo'llanma, xavfsiz yangilash usullari.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Dern-Support</h3>
+                    <p>IT muammolaringizni hal qilishda yordam beramiz. Bizning mutaxassislar har doim yordam berishga tayyor.</p>
+                    <div class="social-links">
+                        <a href="#">📱</a>
+                        <a href="#">📘</a>
+                        <a href="#">📸</a>
+                        <a href="#">📢</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Foydali havolalar</h3>
+                    <ul class="footer-links">
+                        <li><a href="/">Bosh sahifa</a></li>
+                        <li><a href="/knowledges/">Bilimlar bazasi</a></li>
+                        <li><a href="/login/">Kirish</a></li>
+                        <li><a href="/register/">Ro'yxatdan o'tish</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Bog'lanish</h3>
+                    <p>Manzil: Toshkent sh., Amir Temur ko'chasi, 108-uy</p>
+                    <p>Telefon: +998 71 123-45-67</p>
+                    <p>Email: info@dern-support.uz</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Dern-Support. Barcha huquqlar himoyalangan.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // API base URL
+        const API_BASE = 'http://localhost:4000';
+
+        // Check user authentication on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            checkUserAuth();
+        });
+
+        // Check if user is logged in
+        function checkUserAuth() {
+            const userData = localStorage.getItem('userData');
+
+            if (userData) {
+                const user = JSON.parse(userData);
+                
+                // If user is admin, don't redirect from knowledge base
+                if (user.type === 'admin') {
+                    showUserInterface(user);
+                    return;
+                }
+                
+                showUserInterface(user);
+            } else {
+                showGuestInterface();
+            }
+        }
+
+        // Show interface for logged in users
+        function showUserInterface(user) {
+            // Hide guest elements
+            document.getElementById('guestNav').classList.add('hidden');
+            
+            // Show user elements
+            document.getElementById('userNav').classList.remove('hidden');
+            
+            // Update user info
+            document.getElementById('userName').textContent = user.name;
+            document.getElementById('userAvatar').textContent = user.name.charAt(0).toUpperCase();
+        }
+
+        // Show interface for guests
+        function showGuestInterface() {
+            // Show guest elements
+            document.getElementById('guestNav').classList.remove('hidden');
+            
+            // Hide user elements
+            document.getElementById('userNav').classList.add('hidden');
+        }
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('userData');
+            location.reload();
+        }
+    </script>
+</body>
+</html>

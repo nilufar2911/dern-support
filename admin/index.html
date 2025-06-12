@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Dern-Support</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #1e293b;
+            background-color: #f8fafc;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 50%, #1e293b 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 4px 20px rgba(30, 64, 175, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo:hover {
+            opacity: 0.9;
+        }
+
+        .admin-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .admin-badge {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .user-avatar {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .logout-btn {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-1px);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 40px 0;
+            min-height: calc(100vh - 200px);
+        }
+
+        .admin-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .admin-header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #1e293b;
+            margin-bottom: 10px;
+        }
+
+        .admin-header p {
+            font-size: 1.1rem;
+            color: #64748b;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            text-align: center;
+        }
+
+        .stat-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .stat-card .number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #1e293b;
+            margin-bottom: 5px;
+        }
+
+        .stat-card .label {
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        /* Requests Section */
+        .requests-section {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            overflow: hidden;
+        }
+
+        .requests-header {
+            padding: 30px;
+            border-bottom: 1px solid #e2e8f0;
+            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+        }
+
+        .requests-header h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 5px;
+        }
+
+        .requests-header p {
+            color: #64748b;
+        }
+
+        .requests-list {
+            max-height: 800px;
+            overflow-y: auto;
+        }
+
+        .request-item {
+            padding: 25px 30px;
+            border-bottom: 1px solid #f1f5f9;
+            transition: background-color 0.2s ease;
+        }
+
+        .request-item:hover {
+            background-color: #f8fafc;
+        }
+
+        .request-item:last-child {
+            border-bottom: none;
+        }
+
+        .request-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .request-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin: 0;
+            flex: 1;
+            margin-right: 20px;
+        }
+
+        .request-meta {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .status-open {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            color: #92400e;
+        }
+
+        .status-closed {
+            background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+            color: #065f46;
+        }
+
+        .category-badge {
+            background: linear-gradient(135deg, #1e40af, #1e3a8a);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .request-info {
+            display: grid;
+            grid-template-columns: 1fr 200px;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .request-details p {
+            color: #64748b;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .request-user {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #1e40af;
+        }
+
+        .request-user h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 5px;
+        }
+
+        .request-user p {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin: 0;
+        }
+
+        .request-date {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            margin-bottom: 15px;
+        }
+
+        /* Reply Section */
+        .reply-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .existing-reply {
+            background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #059669;
+            margin-bottom: 15px;
+        }
+
+        .existing-reply h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #065f46;
+            margin-bottom: 8px;
+        }
+
+        .existing-reply p {
+            color: #047857;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .reply-form {
+            display: flex;
+            gap: 15px;
+            align-items: flex-end;
+        }
+
+        .reply-input {
+            flex: 1;
+        }
+
+        .reply-input textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            resize: vertical;
+            min-height: 80px;
+            transition: all 0.3s ease;
+        }
+
+        .reply-input textarea:focus {
+            outline: none;
+            border-color: #1e40af;
+            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+        }
+
+        .reply-btn {
+            background: linear-gradient(135deg, #059669, #047857);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .reply-btn:hover {
+            background: linear-gradient(135deg, #047857, #065f46);
+            transform: translateY(-1px);
+        }
+
+        .reply-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Loading State */
+        .loading {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Alert Messages */
+        .alert {
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: 500;
+            display: none;
+        }
+
+        .alert-success {
+            background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+            color: #065f46;
+            border: 1px solid #059669;
+        }
+
+        .alert-error {
+            background: linear-gradient(135deg, #fee2e2, #fecaca);
+            color: #991b1b;
+            border: 1px solid #dc2626;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 30px;
+            color: #64748b;
+        }
+
+        .empty-state .icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .empty-state h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #1e293b;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            text-align: center;
+            color: #94a3b8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .admin-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .request-info {
+                grid-template-columns: 1fr;
+            }
+
+            .reply-form {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .request-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .request-meta {
+                justify-content: flex-start;
+            }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="/" class="logo">
+                    🔧 Dern-Support
+                </a>
+                
+                <div class="admin-info">
+                    <span class="admin-badge">ADMIN</span>
+                    <div class="user-avatar" id="adminAvatar"></div>
+                    <span id="adminName"></span>
+                    <button class="logout-btn" onclick="logout()">Chiqish</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="admin-header">
+                <h1>Admin Panel</h1>
+                <p>Foydalanuvchi so'rovlarini boshqarish va javob berish</p>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="icon">📊</div>
+                    <div class="number" id="totalRequests">0</div>
+                    <div class="label">Jami so'rovlar</div>
+                </div>
+                <div class="stat-card">
+                    <div class="icon">⏳</div>
+                    <div class="number" id="openRequests">0</div>
+                    <div class="label">Ochiq so'rovlar</div>
+                </div>
+                <div class="stat-card">
+                    <div class="icon">✅</div>
+                    <div class="number" id="closedRequests">0</div>
+                    <div class="label">Yopiq so'rovlar</div>
+                </div>
+                <div class="stat-card">
+                    <div class="icon">👥</div>
+                    <div class="number" id="totalUsers">0</div>
+                    <div class="label">Foydalanuvchilar</div>
+                </div>
+            </div>
+
+            <!-- Alert Messages -->
+            <div class="alert alert-success" id="successAlert"></div>
+            <div class="alert alert-error" id="errorAlert"></div>
+
+            <!-- Requests Section -->
+            <div class="requests-section">
+                <div class="requests-header">
+                    <h2>Foydalanuvchi so'rovlari</h2>
+                    <p>Barcha so'rovlarni ko'rish va javob berish</p>
+                </div>
+                <div class="requests-list" id="requestsList">
+                    <!-- Requests will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 Dern-Support Admin Panel. Barcha huquqlar himoyalangan.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // API base URL
+        const API_BASE = 'http://localhost:4000';
+        let currentAdmin = null;
+
+        // Check admin authentication on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAdminAuth();
+        });
+
+        // Check if admin is logged in
+        function checkAdminAuth() {
+            const userData = localStorage.getItem('userData');
+            
+            if (!userData) {
+                // No user data, redirect to login
+                window.location.href = '/login/';
+                return;
+            }
+
+            const user = JSON.parse(userData);
+            
+            if (user.type !== 'admin') {
+                // Not an admin, redirect to home
+                window.location.href = '/';
+                return;
+            }
+
+            currentAdmin = user;
+            setupAdminInterface(user);
+            loadAllRequests();
+        }
+
+        // Setup admin interface
+        function setupAdminInterface(admin) {
+            document.getElementById('adminName').textContent = admin.name;
+            document.getElementById('adminAvatar').textContent = admin.name.charAt(0).toUpperCase();
+        }
+
+        // Load all requests
+        async function loadAllRequests() {
+            try {
+                const response = await fetch(`${API_BASE}/all`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ userId: currentAdmin.id })
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    displayRequests(result.problems);
+                    updateStats(result.problems);
+                } else {
+                    showAlert('error', result.message);
+                }
+            } catch (error) {
+                showAlert('error', 'So\'rovlarni yuklashda xatolik yuz berdi.');
+                console.error('Error:', error);
+            }
+        }
+
+        // Display requests
+        function displayRequests(requests) {
+            const requestsList = document.getElementById('requestsList');
+            
+            if (requests.length === 0) {
+                requestsList.innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">📭</div>
+                        <h3>Hech qanday so'rov yo'q</h3>
+                        <p>Hozircha foydalanuvchilardan so'rovlar kelmagan.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            requestsList.innerHTML = requests.map(request => `
+                <div class="request-item">
+                    <div class="request-header">
+                        <h3 class="request-title">${request.title}</h3>
+                        <div class="request-meta">
+                            <span class="category-badge">${getCategoryName(request.category)}</span>
+                            <span class="status-badge ${request.status === 'open' ? 'status-open' : 'status-closed'}">
+                                ${request.status === 'open' ? 'Ochiq' : 'Yopiq'}
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="request-info">
+                        <div class="request-details">
+                            <p><strong>Muammo tavsifi:</strong></p>
+                            <p>${request.description}</p>
+                        </div>
+                        <div class="request-user">
+                            <h4>Foydalanuvchi</h4>
+                            <p>ID: ${request.userId}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="request-date">
+                        Yuborilgan: ${formatDate(request.createdAt)}
+                    </div>
+                    
+                    <div class="reply-section">
+                        ${request.reply ? `
+                            <div class="existing-reply">
+                                <h4>Sizning javobingiz:</h4>
+                                <p>${request.reply}</p>
+                            </div>
+                        ` : `
+                            <div class="reply-form">
+                                <div class="reply-input">
+                                    <textarea 
+                                        placeholder="Foydalanuvchiga javob yozing..." 
+                                        id="reply-${request.id}"
+                                    ></textarea>
+                                </div>
+                                <button 
+                                    class="reply-btn" 
+                                    onclick="sendReply('${request.id}')"
+                                    id="btn-${request.id}"
+                                >
+                                    Javob yuborish
+                                </button>
+                            </div>
+                        `}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Send reply to request
+        async function sendReply(requestId) {
+            const replyText = document.getElementById(`reply-${requestId}`).value.trim();
+            const replyBtn = document.getElementById(`btn-${requestId}`);
+            
+            if (!replyText) {
+                showAlert('error', 'Javob matnini kiriting!');
+                return;
+            }
+
+            // Show loading state
+            replyBtn.disabled = true;
+            replyBtn.innerHTML = '<span class="loading"></span>Yuborilmoqda...';
+
+            try {
+                const response = await fetch(`${API_BASE}/reply`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        problemId: requestId,
+                        reply: replyText,
+                        userId: currentAdmin.id
+                    })
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    showAlert('success', result.message);
+                    // Reload requests to show updated status
+                    setTimeout(() => {
+                        loadAllRequests();
+                    }, 1000);
+                } else {
+                    showAlert('error', result.message);
+                }
+            } catch (error) {
+                showAlert('error', 'Javob yuborishda xatolik yuz berdi.');
+                console.error('Error:', error);
+            } finally {
+                // Reset button state
+                replyBtn.disabled = false;
+                replyBtn.innerHTML = 'Javob yuborish';
+            }
+        }
+
+        // Update statistics
+        function updateStats(requests) {
+            const totalRequests = requests.length;
+            const openRequests = requests.filter(r => r.status === 'open').length;
+            const closedRequests = requests.filter(r => r.status === 'closed').length;
+            const uniqueUsers = new Set(requests.map(r => r.userId)).size;
+
+            document.getElementById('totalRequests').textContent = totalRequests;
+            document.getElementById('openRequests').textContent = openRequests;
+            document.getElementById('closedRequests').textContent = closedRequests;
+            document.getElementById('totalUsers').textContent = uniqueUsers;
+        }
+
+        // Helper function to get category name
+        function getCategoryName(category) {
+            switch(category) {
+                case 'texnik': return 'Texnik';
+                case 'hisob': return 'Hisob';
+                case 'boshqa': return 'Boshqa';
+                default: return category;
+            }
+        }
+
+        // Helper function to format date
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('uz-UZ', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        // Show alert messages
+        function showAlert(type, message) {
+            const alertElement = document.getElementById(type === 'success' ? 'successAlert' : 'errorAlert');
+            
+            // Hide other alerts
+            document.getElementById('successAlert').style.display = 'none';
+            document.getElementById('errorAlert').style.display = 'none';
+            
+            // Show current alert
+            alertElement.textContent = message;
+            alertElement.style.display = 'block';
+            
+            // Hide alert after 5 seconds
+            setTimeout(() => {
+                alertElement.style.display = 'none';
+            }, 5000);
+        }
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('userData');
+            window.location.href = '/login/';
+        }
+    </script>
+</body>
+</html>

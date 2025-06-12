@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dern-Support - IT Yordam Xizmati</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="/" class="logo">
+                    🔧 Dern-Support
+                </a>
+                
+                <!-- Navigation for non-logged users -->
+                <nav class="nav-links" id="guestNav">
+                    <a href="knowledges/">Bilimlar bazasi</a>
+                    <a href="login/">Kirish</a>
+                    <a href="register/">Ro'yxatdan o'tish</a>
+                </nav>
+
+                <!-- Navigation for logged users -->
+                <div class="user-info hidden" id="userNav">
+                    <a href="knowledges/" style="color: white; text-decoration: none;">Bilimlar bazasi</a>
+                    <div class="user-avatar" id="userAvatar"></div>
+                    <span id="userName"></span>
+                    <button class="logout-btn" onclick="logout()">Chiqish</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section for Guests -->
+    <section class="hero" id="guestHero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Professional IT Yordam</h1>
+                <p>Kompyuter va texnik muammolaringizni tezkor hal qilish. Biznes va shaxsiy mijozlar uchun ishonchli xizmat ko'rsatamiz.</p>
+                <div class="cta-buttons">
+                    <a href="register/" class="btn btn-primary">Bepul ro'yxatdan o'tish</a>
+                    <a href="login/" class="btn btn-secondary">Tizimga kirish</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hero Section for Logged Users -->
+    <section class="hero hidden" id="userHero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Yordam so'rovi</h1>
+                <p>Texnik muammo yoki savolingiz bormi? Mutaxassislarimizga murojaat qiling!</p>
+                
+                <div class="support-form">
+                    <div class="alert alert-success" id="successAlert"></div>
+                    <div class="alert alert-error" id="errorAlert"></div>
+                    
+                    <form id="supportForm">
+                        <div class="form-group">
+                            <label for="title">Muammo sarlavhasi *</label>
+                            <input type="text" id="title" name="title" placeholder="Masalan: Kompyuter o'chib qolmoqda" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="category">Kategoriya *</label>
+                            <select id="category" name="category" required>
+                                <option value="">Kategoriyani tanlang</option>
+                                <option value="texnik">Texnik muammo</option>
+                                <option value="hisob">Hisob bilan bog'liq</option>
+                                <option value="boshqa">Boshqa</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="description">Muammo tavsifi *</label>
+                            <textarea id="description" name="description" placeholder="Muammoni batafsil tasvirlab bering. Qanday xatolik xabarlari paydo bo'ladi? Qachon boshlangan?" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">So'rov yuborish</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Knowledge Base Section -->
+    <section class="knowledge-base">
+        <div class="container">
+            <h2 class="section-title">Bilimlar bazasi</h2>
+            <p class="section-subtitle">Eng ko'p uchraydigan muammolar va ularning yechimlari haqida foydali maqolalar</p>
+            
+            <div class="knowledge-grid">
+                <div class="knowledge-card" onclick="window.location.href='knowledges/0/'">
+                    <img src="https://www.revouninstaller.com/wp-content/uploads/2021/04/slow-computer-cover.jpg?height=220&width=380" alt="Kompyuter sekinlashishi">
+                    <div class="knowledge-content">
+                        <h3>Kompyuter sekinlashishi muammosi</h3>
+                        <p>Kompyuteringiz sekin ishlayaptimi? Tezligini oshirish uchun samarali usullar va professional maslahatlar.</p>
+                        <span class="knowledge-tag">Texnik yordam</span>
+                    </div>
+                </div>
+
+                <div class="knowledge-card" onclick="window.location.href='knowledges/1/'">
+                    <img src="https://assets-eu-01.kc-usercontent.com/77bbf83a-1306-0152-fea5-3b5eaf937634/0ebab44e-7808-4cc3-8cb9-09eb524fb8e3/network-issues.jpg?height=220&width=380" alt="Internet ulanishi">
+                    <div class="knowledge-content">
+                        <h3>Internet ulanish muammolari</h3>
+                        <p>Wi-Fi yoki internet bilan bog'liq muammolarni tezkor hal qilish bo'yicha to'liq qo'llanma.</p>
+                        <span class="knowledge-tag">Tarmoq</span>
+                    </div>
+                </div>
+
+                <div class="knowledge-card" onclick="window.location.href='knowledges/2/'">
+                    <img src="https://www.eojohnson.com/hubfs/computer-virus-protection.jpg?height=220&width=380" alt="Virus himoyasi">
+                    <div class="knowledge-content">
+                        <h3>Virus va zararli dasturlardan himoya</h3>
+                        <p>Kompyuteringizni viruslar va zararli dasturlardan samarali himoya qilish usullari.</p>
+                        <span class="knowledge-tag">Xavfsizlik</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="knowledge-actions">
+                <a href="knowledges/" class="btn btn-outline">
+                    📚 Barcha bilimlarni ko'rish
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>🔧 Dern-Support</h3>
+                    <p>Professional IT yordam xizmati. Biznes va shaxsiy mijozlar uchun ishonchli texnik yordam ko'rsatamiz.</p>
+                    <div class="social-links">
+                        <a href="#" title="Facebook">📘</a>
+                        <a href="#" title="Twitter">🐦</a>
+                        <a href="#" title="LinkedIn">💼</a>
+                        <a href="#" title="Instagram">📷</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Xizmatlar</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Texnik yordam</a></li>
+                        <li><a href="#">Kompyuter ta'miri</a></li>
+                        <li><a href="#">Tarmoq sozlash</a></li>
+                        <li><a href="#">Ma'lumotlarni tiklash</a></li>
+                        <li><a href="#">Virus tozalash</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Kompaniya</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Biz haqimizda</a></li>
+                        <li><a href="#">Jamoa</a></li>
+                        <li><a href="#">Karyera</a></li>
+                        <li><a href="#">Yangiliklar</a></li>
+                        <li><a href="#">Aloqa</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Aloqa</h3>
+                    <p>📞 +998 90 123 45 67</p>
+                    <p>✉️ info@dern-support.uz</p>
+                    <p>📍 Toshkent, O'zbekiston</p>
+                    <p>🕒 Dush-Juma: 9:00-18:00</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Dern-Support. Barcha huquqlar himoyalangan. | Maxfiylik siyosati | Foydalanish shartlari</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

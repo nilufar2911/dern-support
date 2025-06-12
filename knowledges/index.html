@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bilimlar bazasi - Dern-Support</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        /* Knowledge Base Specific Styles */
+        .knowledge-hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            color: white;
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .knowledge-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(5,150,105,0.1)" points="0,1000 1000,0 1000,1000"/></svg>');
+            pointer-events: none;
+        }
+
+        .knowledge-hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .knowledge-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+            line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .knowledge-hero p {
+            font-size: 1.2rem;
+            margin-bottom: 0;
+            opacity: 0.95;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .knowledge-search {
+            max-width: 600px;
+            margin: 40px auto 0;
+            position: relative;
+        }
+
+        .knowledge-search input {
+            width: 100%;
+            padding: 16px 20px;
+            padding-left: 50px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .knowledge-search input:focus {
+            outline: none;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.3);
+        }
+
+        .knowledge-search::before {
+            content: '🔍';
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+        }
+
+        .knowledge-categories {
+            padding: 30px 0;
+            background: #f8fafc;
+        }
+
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .category-tab {
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #64748b;
+            background: white;
+            border: 1px solid #e2e8f0;
+        }
+
+        .category-tab:hover {
+            background: #f1f5f9;
+            color: #1e293b;
+            transform: translateY(-2px);
+        }
+
+        .category-tab.active {
+            background: linear-gradient(135deg, #1e40af, #1e3a8a);
+            color: white;
+            border-color: transparent;
+        }
+
+        .knowledge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .knowledge-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(30, 41, 59, 0.08);
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+        }
+
+        .knowledge-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(30, 41, 59, 0.15);
+        }
+
+        .knowledge-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .knowledge-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .knowledge-content {
+            padding: 30px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .knowledge-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            color: #1e293b;
+            font-weight: 700;
+        }
+
+        .knowledge-content p {
+            color: #64748b;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .knowledge-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #1e40af, #1e3a8a);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .knowledge-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+            padding-top: 15px;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .knowledge-date {
+            font-size: 0.85rem;
+            color: #94a3b8;
+        }
+
+        .knowledge-read {
+            color: #1e40af;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .knowledge-read::after {
+            content: '→';
+            transition: transform 0.3s ease;
+        }
+
+        .knowledge-card:hover .knowledge-read::after {
+            transform: translateX(3px);
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 50px;
+        }
+
+        .pagination-item {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .pagination-item:hover {
+            background: #f1f5f9;
+            transform: translateY(-2px);
+        }
+
+        .pagination-item.active {
+            background: linear-gradient(135deg, #1e40af, #1e3a8a);
+            color: white;
+            border-color: transparent;
+        }
+
+        .pagination-arrow {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .pagination-arrow:hover {
+            background: #f1f5f9;
+            transform: translateY(-2px);
+        }
+
+        .pagination-arrow.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .knowledge-hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .knowledge-hero p {
+                font-size: 1rem;
+            }
+
+            .category-tabs {
+                gap: 10px;
+            }
+
+            .category-tab {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+
+            .knowledge-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="/" class="logo">
+                    🔧 Dern-Support
+                </a>
+                
+                <!-- Guest Navigation -->
+                <div class="nav-links" id="guestNav">
+                    <a href="/login/">Kirish</a>
+                    <a href="/register/">Ro'yxatdan o'tish</a>
+                </div>
+                
+                <!-- User Navigation -->
+                <div class="user-info hidden" id="userNav">
+                    <div class="user-avatar" id="userAvatar"></div>
+                    <span id="userName"></span>
+                    <button class="logout-btn" onclick="logout()">Chiqish</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Knowledge Hero -->
+    <section class="knowledge-hero">
+        <div class="container">
+            <div class="knowledge-hero-content">
+                <h1>Bilimlar bazasi</h1>
+                <p>Kompyuter va dasturiy ta'minot bilan bog'liq muammolarni hal qilish bo'yicha foydali ma'lumotlar va qo'llanmalar</p>
+                
+                <div class="knowledge-search">
+                    <input type="text" placeholder="Bilimlar bazasidan qidirish..." id="searchInput">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="knowledge-categories">
+        <div class="container">
+        </div>
+    </section>
+
+    <!-- Knowledge Articles -->
+    <section class="section">
+        <div class="container">
+            <div class="knowledge-grid" id="knowledgeGrid">
+                <!-- Article 1 -->
+                <a href="/knowledges/0/" class="knowledge-card">
+                    <img src="https://www.revouninstaller.com/wp-content/uploads/2021/04/slow-computer-cover.jpg?height=220&width=400" alt="Kompyuter sekinlashishi muammosi">
+                    <div class="knowledge-content">
+                        <!-- <span class="knowledge-tag">Qurilmalar</span> -->
+                        <h3>Kompyuter sekinlashishi muammosi</h3>
+                        <p>Kompyuteringiz sekinlashib qolganmi? Tezligini oshirish va ishlashini yaxshilash uchun amaliy maslahatlar.</p>
+                        <div class="knowledge-meta">
+                            <div class="knowledge-date">15-May, 2024</div>
+                            <div class="knowledge-read">Batafsil</div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Article 2 -->
+                <a href="/knowledges/1/" class="knowledge-card">
+                    <img src="https://assets-eu-01.kc-usercontent.com/77bbf83a-1306-0152-fea5-3b5eaf937634/0ebab44e-7808-4cc3-8cb9-09eb524fb8e3/network-issues.jpg?height=220&width=400" alt="Internet ulanish muammolari">
+                    <div class="knowledge-content">
+                        <!-- <span class="knowledge-tag">Tarmoq</span> -->
+                        <h3>Internet ulanish muammolari</h3>
+                        <p>Internet ulanishingiz sekin yoki uzilayaptimi? Tarmoq muammolarini aniqlash va hal qilish bo'yicha qo'llanma.</p>
+                        <div class="knowledge-meta">
+                            <div class="knowledge-date">10-May, 2024</div>
+                            <div class="knowledge-read">Batafsil</div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Article 3 -->
+                <a href="/knowledges/2/" class="knowledge-card">
+                    <img src="https://www.eojohnson.com/hubfs/computer-virus-protection.jpg?height=220&width=400" alt="Virus va zararli dasturlardan himoya">
+                    <div class="knowledge-content">
+                        <!-- <span class="knowledge-tag">Xavfsizlik</span> -->
+                        <h3>Virus va zararli dasturlardan himoya</h3>
+                        <p>Kompyuteringizni virus va zararli dasturlardan himoya qilish uchun eng yaxshi amaliyotlar va vositalar.</p>
+                        <div class="knowledge-meta">
+                            <div class="knowledge-date">5-May, 2024</div>
+                            <div class="knowledge-read">Batafsil</div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Article 4 -->
+                <a href="/knowledges/3/" class="knowledge-card">
+                    <img src="https://www.datasciencecentral.com/wp-content/uploads/2022/04/AdobeStock_486455531.jpg?height=220&width=400" alt="Ma'lumotlarni zaxiralash va xavfsizlik">
+                    <div class="knowledge-content">
+                        <!-- <span class="knowledge-tag">Xavfsizlik</span> -->
+                        <h3>Ma'lumotlarni zaxiralash va xavfsizlik</h3>
+                        <p>Muhim ma'lumotlaringizni yo'qotishdan saqlash uchun zaxiralash usullari va ma'lumotlar xavfsizligi bo'yicha maslahatlar.</p>
+                        <div class="knowledge-meta">
+                            <div class="knowledge-date">1-May, 2024</div>
+                            <div class="knowledge-read">Batafsil</div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Article 5 -->
+                <a href="/knowledges/4/" class="knowledge-card">
+                    <img src="https://www.siyavula.com/read/za/computer-applications-technology/grade-10/computer-software/images/pg105-01.jpg?height=220&width=400" alt="Operatsion tizim va dasturiy ta'minot yangilash">
+                    <div class="knowledge-content">
+                        <!-- <span class="knowledge-tag">Dasturiy ta'minot</span> -->
+                        <h3>Operatsion tizim va dasturiy ta'minot yangilash</h3>
+                        <p>Operatsion tizim va dasturiy ta'minotni yangilash bo'yicha qo'llanma, xavfsiz yangilash usullari.</p>
+                        <div class="knowledge-meta">
+                            <div class="knowledge-date">25-Apr, 2024</div>
+                            <div class="knowledge-read">Batafsil</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Dern-Support</h3>
+                    <p>IT muammolaringizni hal qilishda yordam beramiz. Bizning mutaxassislar har doim yordam berishga tayyor.</p>
+                    <div class="social-links">
+                        <a href="#">📱</a>
+                        <a href="#">📘</a>
+                        <a href="#">📸</a>
+                        <a href="#">📢</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Foydali havolalar</h3>
+                    <ul class="footer-links">
+                        <li><a href="/">Bosh sahifa</a></li>
+                        <li><a href="/knowledges/">Bilimlar bazasi</a></li>
+                        <li><a href="/login/">Kirish</a></li>
+                        <li><a href="/register/">Ro'yxatdan o'tish</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Bog'lanish</h3>
+                    <p>Manzil: Toshkent sh., Amir Temur ko'chasi, 108-uy</p>
+                    <p>Telefon: +998 71 123-45-67</p>
+                    <p>Email: info@dern-support.uz</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Dern-Support. Barcha huquqlar himoyalangan.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // API base URL
+        const API_BASE = 'http://localhost:4000';
+
+        // Check user authentication on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            checkUserAuth();
+            setupSearch();
+            setupCategoryFilters();
+        });
+
+        // Check if user is logged in
+        function checkUserAuth() {
+            const userData = localStorage.getItem('userData');
+
+            if (userData) {
+                const user = JSON.parse(userData);
+                
+                // If user is admin, don't redirect from knowledge base
+                if (user.type === 'admin') {
+                    showUserInterface(user);
+                    return;
+                }
+                
+                showUserInterface(user);
+            } else {
+                showGuestInterface();
+            }
+        }
+
+        // Show interface for logged in users
+        function showUserInterface(user) {
+            // Hide guest elements
+            document.getElementById('guestNav').classList.add('hidden');
+            
+            // Show user elements
+            document.getElementById('userNav').classList.remove('hidden');
+            
+            // Update user info
+            document.getElementById('userName').textContent = user.name;
+            document.getElementById('userAvatar').textContent = user.name.charAt(0).toUpperCase();
+        }
+
+        // Show interface for guests
+        function showGuestInterface() {
+            // Show guest elements
+            document.getElementById('guestNav').classList.remove('hidden');
+            
+            // Hide user elements
+            document.getElementById('userNav').classList.add('hidden');
+        }
+
+        // Setup search functionality
+        function setupSearch() {
+            const searchInput = document.getElementById('searchInput');
+            const knowledgeCards = document.querySelectorAll('.knowledge-card');
+            
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase().trim();
+                
+                knowledgeCards.forEach(card => {
+                    const title = card.querySelector('h3').textContent.toLowerCase();
+                    const description = card.querySelector('p').textContent.toLowerCase();
+                    const tag = card.querySelector('.knowledge-tag').textContent.toLowerCase();
+                    
+                    if (title.includes(searchTerm) || description.includes(searchTerm) || tag.includes(searchTerm)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        // Setup category filters
+        function setupCategoryFilters() {
+            const categoryTabs = document.querySelectorAll('.category-tab');
+            const knowledgeCards = document.querySelectorAll('.knowledge-card');
+            
+            categoryTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remove active class from all tabs
+                    categoryTabs.forEach(t => t.classList.remove('active'));
+                    
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+                    
+                    const category = this.dataset.category.toLowerCase();
+                    
+                    knowledgeCards.forEach(card => {
+                        const cardCategory = card.querySelector('.knowledge-tag').textContent.toLowerCase();
+                        
+                        if (category === 'all' || cardCategory.includes(category)) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        }
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('userData');
+            location.reload();
+        }
+    </script>
+</body>
+</html>
