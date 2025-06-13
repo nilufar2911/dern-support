@@ -1,5 +1,5 @@
 // API base URL
-const API_BASE = "https://27wnwm-4000.csb.app";
+const API_BASE = "https://nilu2911-dern-support-backend-production.up.railway.app";
 
 // Check user authentication on page load
 document.addEventListener("DOMContentLoaded", function () {
